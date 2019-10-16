@@ -38,8 +38,9 @@ function move_torre(position, positions){
     while( i<n ){
         
         position=setCharAt(position,1,parseInt(position[1])-1);
-        if(encontrar_casilla(position).ficha.color==encontrar_casilla(pos_aux).ficha.color){ break;
-        }else{ positions.push(position); i++;}
+        positions.push(position); i++;
+        if(encontrar_casilla(position).ficha!="NaN" ){ break;
+        }
         
     }
     //Abajo
@@ -49,8 +50,9 @@ function move_torre(position, positions){
     while( i<=8-n ){
         
         position1=setCharAt(position1,1,parseInt(position1[1])+1);
-        if(encontrar_casilla(position1).ficha.color==encontrar_casilla(pos_aux).ficha.color){ break;
-        }else{ positions.push(position1); i++;}
+        positions.push(position1); i++;
+        if(encontrar_casilla(position1).ficha!="NaN" ){ break;
+        }
         
     }
     //Derecha
@@ -60,8 +62,9 @@ function move_torre(position, positions){
     while( i<8-n1){
         
         position2=setCharAt(position2, 0, filas[filas.indexOf(position2[0])+1]);
-        if(encontrar_casilla(position2).ficha.color==encontrar_casilla(pos_aux).ficha.color){ break;
-        }else{ positions.push(position2); i++;}
+        positions.push(position2); i++;
+        if(encontrar_casilla(position2).ficha!="NaN" ){ break;
+        }
         
     }
     //Izquierda
@@ -71,8 +74,9 @@ function move_torre(position, positions){
     while( i<=n1){
         
         position3=setCharAt(position3, 0, filas[filas.indexOf(position3[0])-1]);
-        if(encontrar_casilla(position3).ficha.color==encontrar_casilla(pos_aux).ficha.color){ break;
-        }else{ positions.push(position3); i++;}
+        positions.push(position3); i++;
+        if(encontrar_casilla(position3).ficha!="NaN" ){ break;
+        }
         
     }
     return positions;
@@ -89,12 +93,13 @@ function move_alfil(position, positions){
     var j=1;
     var pos_aux= position;
     while( i<n & j<8-n1){
-
+        
         position=setCharAt(position,1,parseInt(position[1])-1);
         position=setCharAt(position, 0, filas[filas.indexOf(position[0])+1]);
 
-        if(encontrar_casilla(position).ficha!="NaN"){ break;
-        }else{ positions.push(position); i++; j++;}
+        positions.push(position); i++; j++;
+        if(encontrar_casilla(position).ficha!="NaN" ){ break;
+        }
                  
         
     }
@@ -108,9 +113,9 @@ function move_alfil(position, positions){
         position1=setCharAt(position1,1,parseInt(position1[1])-1);
         position1=setCharAt(position1, 0, filas[filas.indexOf(position1[0])-1]);
 
-        if(encontrar_casilla(position1).ficha!="NaN"){ break;
-        }else{ positions.push(position1); i++; j++;}
-                 
+        positions.push(position1); i++; j++;
+        if(encontrar_casilla(position1).ficha!="NaN" ){ break;
+        }
         
     }
 
@@ -123,8 +128,9 @@ function move_alfil(position, positions){
         position2=setCharAt(position2,1,parseInt(position2[1])+1);
         position2=setCharAt(position2, 0, filas[filas.indexOf(position2[0])-1]);
 
-        if(encontrar_casilla(position2).ficha!="NaN"){ break;
-        }else{ positions.push(position2); i++; j++;}
+        positions.push(position2); i++; j++;
+        if(encontrar_casilla(position2).ficha!="NaN" ){ break;
+        }
                  
         
     }
@@ -135,11 +141,12 @@ function move_alfil(position, positions){
     pos_aux= position3;
     while( i<=8-n  & j<8-n1){
 
-        position2=setCharAt(position3,1,parseInt(position3[1])+1);
-        position2=setCharAt(position3, 0, filas[filas.indexOf(position3[0])+1]);
-
-        if(encontrar_casilla(position3).ficha!="NaN"){ break;
-        }else{ positions.push(position3); i++; j++;}
+        position3=setCharAt(position3,1,parseInt(position3[1])+1);
+        position3=setCharAt(position3, 0, filas[filas.indexOf(position3[0])+1]);
+        positions.push(position3); i++; j++;
+        if(encontrar_casilla(position3).ficha!="NaN" ){ break;
+        }
+        
                  
         
     }
@@ -327,15 +334,15 @@ Ficha.prototype.movimiento=function(){
         var pos_aux = position;
 
         position=setCharAt(position,1,parseInt(position[1])-1);
-        if(position[1]>=1) positions.push(position);
+        if(position[1]>=1) console.log("holaaa");positions.push(position);
         
    
         position1=setCharAt(position1,1,parseInt(position1[1])+1);
-        if(position1[1]<=8) positions.push(position1);
+        if(position1[1]<=8) console.log("holaaa");positions.push(position1);
        
     
         position2=setCharAt(position2, 0, filas[filas.indexOf(position2[0])+1]);
-        if(filas.indexOf(position2)<8)positions.push(position2);
+        if(filas.indexOf(position2)<8) console.log("holaaa");positions.push(position2);
 
         position3=setCharAt(position3, 0, filas[filas.indexOf(position3[0])-1]);
         if(filas.indexOf(position3)>=0) console.log("holaaa");positions.push(position3);
@@ -344,19 +351,19 @@ Ficha.prototype.movimiento=function(){
         //Diagonales
         position4=setCharAt(position4,1,parseInt(position4[1])+1);
         position4=setCharAt(position4, 0, filas[filas.indexOf(position4[0])+1]);
-        if(filas.indexOf(position4)<8 & position4[1]<=8) positions.push(position4);
+        if(filas.indexOf(position4)<8 & position4[1]<=8) console.log("holaaa");positions.push(position4);
 
         position4=pos_aux;
 
         position4=setCharAt(position4,1,parseInt(position4[1])+1);
         position4=setCharAt(position4, 0, filas[filas.indexOf(position4[0])-1]);
-        if(filas.indexOf(position4)>=0 & position4[1]<=8) positions.push(position4);
+        if(filas.indexOf(position4)>=0 & position4[1]<=8)  console.log("holaaa");positions.push(position4);
 
         position4=pos_aux;
 
         position4=setCharAt(position4,1,parseInt(position4[1])-1);
         position4=setCharAt(position4, 0, filas[filas.indexOf(position4[0])+1]);
-        if(filas.indexOf(position4)<8 & position4[1]>=1) positions.push(position4);
+        if(filas.indexOf(position4)<8 & position4[1]>=1) console.log("holaaa");positions.push(position4);
 
         position4=pos_aux;
 
@@ -755,14 +762,19 @@ function drop(event) {
     var sale = document.getElementById(data);
     var pos = event.target.id.includes("img")? event.target.id.substring(0,event.target.id.length-3): event.target.id;
 
-    if (event.target.className.includes("posible") ==true ){
+    if(event.target.className.includes("posible") ==true ){
         sale.setAttribute("id", pos +"img");
-        document.getElementById(pos).appendChild(sale);
-        event.target.className = event.target.className.replace(" posible",'');
-        event.target.style.border = "";
-        encontrar_casilla(casilla_actual[0]+casilla_actual[1]).ficha.move(pos);
-        Tablero1.turn = Tablero1.turn==="blanca"?"negra":"blanca";
-        document.getElementById("turno").innerHTML = "JUEGA-> "+ Tablero1.turn;
+        if(encontrar_casilla(pos).ficha.nombre=="rey"){
+            document.getElementById("turno").innerHTML = "GANARON LAS "+ Tablero1.turn+"s";
+        }else{
+            document.getElementById(pos).appendChild(sale);
+            event.target.className = event.target.className.replace(" posible",'');
+            event.target.style.border = "";
+            encontrar_casilla(casilla_actual[0]+casilla_actual[1]).ficha.move(pos);
+            Tablero1.turn = Tablero1.turn==="blanca"?"negra":"blanca";
+            document.getElementById("turno").innerHTML = "JUEGA-> "+ Tablero1.turn;
+        }
+        
     }
 }
 
