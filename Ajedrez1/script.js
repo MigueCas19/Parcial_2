@@ -25,7 +25,6 @@ function encontrar_casilla(pos){
     
 }
 
-
 function move_torre(position, positions){
     var n = parseInt(position[1]);
     var n1=filas.indexOf(position[0]);
@@ -79,82 +78,144 @@ function move_torre(position, positions){
     return positions;
 }
 
-function create_all_diagonals(){
-    var bottomToTop=true;
-    var Ylength = 8;
-    var Xlength = 8;
-    var maxLength = Math.max(Xlength, Ylength);
-    var temp;
-    var temp1;
-    var diagonales_izq = [];
-    var diagonales_der = [];
-    for (var k = 0; k <= 2 * (maxLength - 1); ++k) {
-        temp = [];
-        temp1 = [];
-        for (var y = Ylength - 1; y >= 0; --y) {
-            var x = k - Ylength + y ;
-            var x1 = k - y;
-            if (x >= 0 && x < Xlength) {
-                temp.push(filas[x]+(y+1));
-            }
-            if (x1 >= 0 && x1 < Xlength) {
-                temp1.push(filas[x1]+(y+1));
-            }
-        }
-        if(temp.length > 0) {
-            diagonales_izq.push(temp.join(''));
-        }
-        if(temp.length > 0) {
-            diagonales_der.push(temp1.join(''));
-        }
-    }
-    diagonales_izq.push("H1")
-    diagonales_der.push("A1");
-    var diagonales = diagonales_izq.concat(diagonales_der);
-    return diagonales;
-
-}
-
 function move_alfil(position, positions){
-    var diag= create_all_diagonals();
-    for(var i =0; i<diag.length; i++){
-        if(diag[i].includes(position)){
-            for(var j=0; j<(diag[i].length); j+=2){
-                
-                var str = diag[i].substring(j, j+2);
-                if(str!=position){positions.push(str);}
-                
-            }
-        }
-    }
-    return positions;
-}
-function move_alfil2(position, positions){
     var n = parseInt(position[1]);
     var n1=filas.indexOf(position[0]);
+    var position1=position;
+    var position2=position;
+    var position3=position;
     //Arriba-Derecha
     var i=1;
     var j=1;
     var pos_aux= position;
-    while( i<n ){
-        while( j<8-n1){
-        
-            position=setCharAt(position,1,parseInt(position[1])-1);
-            position=setCharAt(position, 0, filas[filas.indexOf(position[0])+1]);
+    while( i<n & j<8-n1){
 
-            if(encontrar_casilla(position).ficha.color==encontrar_casilla(pos_aux).ficha.color){ break;
-            }else{ positions.push(position); i++; j++;}
-            
-        
-        }
+        position=setCharAt(position,1,parseInt(position[1])-1);
+        position=setCharAt(position, 0, filas[filas.indexOf(position[0])+1]);
+
+        if(encontrar_casilla(position).ficha!="NaN"){ break;
+        }else{ positions.push(position); i++; j++;}
+                 
         
     }
-    
 
-    
-    
+    //Arriba-Izquierda
+    var i=1;
+    var j=1;
+    pos_aux= position1;
+    while( i<n & j<=n1){
+
+        position1=setCharAt(position1,1,parseInt(position1[1])-1);
+        position1=setCharAt(position1, 0, filas[filas.indexOf(position1[0])-1]);
+
+        if(encontrar_casilla(position1).ficha!="NaN"){ break;
+        }else{ positions.push(position1); i++; j++;}
+                 
+        
+    }
+
+    //Abajo-Izquierda
+    var i=1;
+    var j=1;
+    pos_aux= position2;
+    while( i<=8-n  & j<=n1){
+
+        position2=setCharAt(position2,1,parseInt(position2[1])+1);
+        position2=setCharAt(position2, 0, filas[filas.indexOf(position2[0])-1]);
+
+        if(encontrar_casilla(position2).ficha!="NaN"){ break;
+        }else{ positions.push(position2); i++; j++;}
+                 
+        
+    }
+
+    //Abajo-Derecha
+    var i=1;
+    var j=1;
+    pos_aux= position3;
+    while( i<=8-n  & j<8-n1){
+
+        position2=setCharAt(position3,1,parseInt(position3[1])+1);
+        position2=setCharAt(position3, 0, filas[filas.indexOf(position3[0])+1]);
+
+        if(encontrar_casilla(position3).ficha!="NaN"){ break;
+        }else{ positions.push(position3); i++; j++;}
+                 
+        
+    }
+
+
+
+    return positions;
 }
 
+function move_cab(position, positions){
+    var n = parseInt(position[1]);
+    var n1=filas.indexOf(position[0]);
+    var aux_pos=position;
+    if(n+2<=8){
+        if(n1+1<8){
+            position=setCharAt(position,1,parseInt(position[1])+2);
+            position=setCharAt(position, 0, filas[filas.indexOf(position[0])+1]);
+            positions.push(position)
+            position=aux_pos;
+        }
+        if(n1-1>=0){
+            position=setCharAt(position,1,parseInt(position[1])+2);
+            position=setCharAt(position, 0, filas[filas.indexOf(position[0])-1]);
+            positions.push(position)
+            position=aux_pos;
+        }
+    }
+
+    if(n-2>=1){
+        if(n1+1<8){
+            position=setCharAt(position,1,parseInt(position[1])-2);
+            position=setCharAt(position, 0, filas[filas.indexOf(position[0])+1]);
+            positions.push(position)
+            position=aux_pos;
+        }
+        if(n1-1>=0){
+            position=setCharAt(position,1,parseInt(position[1])-2);
+            position=setCharAt(position, 0, filas[filas.indexOf(position[0])-1]);
+            positions.push(position)
+            position=aux_pos;
+        }
+    }
+
+    if(n1+2<8){
+        if(n+1<=8){
+            position=setCharAt(position,1,parseInt(position[1])+1);
+            position=setCharAt(position, 0, filas[filas.indexOf(position[0])+2]);
+            positions.push(position)
+            position=aux_pos;
+        }
+        if(n-1>=1){
+            position=setCharAt(position,1,parseInt(position[1])-1);
+            position=setCharAt(position, 0, filas[filas.indexOf(position[0])+2]);
+            positions.push(position)
+            position=aux_pos;
+        }
+    }
+
+    if(n1-2>=0){
+        if(n+1<=8){
+            position=setCharAt(position,1,parseInt(position[1])+1);
+            position=setCharAt(position, 0, filas[filas.indexOf(position[0])-2]);
+            positions.push(position)
+            position=aux_pos;
+        }
+        if(n-1>=1){
+            position=setCharAt(position,1,parseInt(position[1])-1);
+            position=setCharAt(position, 0, filas[filas.indexOf(position[0])-2]);
+            positions.push(position)
+            position=aux_pos;
+        }
+    }
+
+    return positions;
+
+}
 ///////////////////////////////
 
 
@@ -213,7 +274,12 @@ Ficha.prototype.movimiento=function(){
     if(this.getnombre()=="peon"){
         var position2=position;
         var position3=position;
+        //cuando se empieza el peón puede avanzar dos posiciones
         if(this.getcolor()=="blanca"){ 
+            if(position[1]=="7"){
+                positions.push(setCharAt(position,1,parseInt(position[1])-2));
+
+            }
             
             position=setCharAt(position,1,parseInt(position[1])-1)
             position2=setCharAt(position2,1,parseInt(position2[1])-1)
@@ -222,7 +288,12 @@ Ficha.prototype.movimiento=function(){
             position3=setCharAt(position3, 0, filas[filas.indexOf(position3[0])+1]);
 
         }
-        else if(this.getcolor()=="negra"){ 
+        else if(this.getcolor()=="negra"){
+            //cuando se empieza el peón puede avanzar dos posiciones
+            if(position[1]=="2"){
+                positions.push(setCharAt(position,1,parseInt(position[1])+2));
+
+            } 
             position=setCharAt(position,1,parseInt(position[1])+1)
             position2=setCharAt(position2,1,parseInt(position2[1])+1)
             position3=setCharAt(position3,1,parseInt(position3[1])+1)
@@ -244,7 +315,7 @@ Ficha.prototype.movimiento=function(){
 
     }else if(this.getnombre()=="alfil"){
 
-        positions = move_alfil2(position, positions);
+        positions = move_alfil(position, positions);
 
     }else if(this.getnombre()=="reina"){
         positions= move_torre(position, positions).concat(move_alfil(position, positions));
@@ -252,6 +323,8 @@ Ficha.prototype.movimiento=function(){
         position1=position;
         var position2=position;
         var position3=position;
+        var position4=position;
+        var pos_aux = position;
 
         position=setCharAt(position,1,parseInt(position[1])-1);
         if(position[1]>=1) positions.push(position);
@@ -262,10 +335,38 @@ Ficha.prototype.movimiento=function(){
        
     
         position2=setCharAt(position2, 0, filas[filas.indexOf(position2[0])+1]);
-        positions.push(position2);
+        if(filas.indexOf(position2)<8)positions.push(position2);
 
         position3=setCharAt(position3, 0, filas[filas.indexOf(position3[0])-1]);
-        positions.push(position3);
+        if(filas.indexOf(position3)>=0) console.log("holaaa");positions.push(position3);
+
+        ////////////////////////////////////////////////////////////////////////
+        //Diagonales
+        position4=setCharAt(position4,1,parseInt(position4[1])+1);
+        position4=setCharAt(position4, 0, filas[filas.indexOf(position4[0])+1]);
+        if(filas.indexOf(position4)<8 & position4[1]<=8) positions.push(position4);
+
+        position4=pos_aux;
+
+        position4=setCharAt(position4,1,parseInt(position4[1])+1);
+        position4=setCharAt(position4, 0, filas[filas.indexOf(position4[0])-1]);
+        if(filas.indexOf(position4)>=0 & position4[1]<=8) positions.push(position4);
+
+        position4=pos_aux;
+
+        position4=setCharAt(position4,1,parseInt(position4[1])-1);
+        position4=setCharAt(position4, 0, filas[filas.indexOf(position4[0])+1]);
+        if(filas.indexOf(position4)<8 & position4[1]>=1) positions.push(position4);
+
+        position4=pos_aux;
+
+        position4=setCharAt(position4,1,parseInt(position4[1])-1);
+        position4=setCharAt(position4, 0, filas[filas.indexOf(position4[0])-1]);
+        if(filas.indexOf(position4)>=0 & position4[1]>=1)  console.log("holaaa"); positions.push(position4);
+
+        
+    }else if(this.getnombre()=="caballo"){
+        positions=move_cab(position,positions);
     }
     return positions;
 }
@@ -647,7 +748,7 @@ function drop(event) {
         event.target.style.border = "";
         encontrar_casilla(casilla_actual[0]+casilla_actual[1]).ficha.move(pos);
         Tablero1.turn = Tablero1.turn==="blanca"?"negra":"blanca";
-        document.getElementById("turno").innerHTML = "Juegan: "+ Tablero1.turn+"s";
+        document.getElementById("turno").innerHTML = "JUEGA-> "+ Tablero1.turn;
     }
 }
 

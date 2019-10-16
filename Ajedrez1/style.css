@@ -62,7 +62,6 @@
     font-size: 40px;
     font-family: fantasy;
 
-
 }
 
 #btt1{
@@ -111,6 +110,20 @@
     width: 210px;
     height: 100px;
     align-content: center;
+}
+
+#aclaracion{
+    border-color:red;
+    border-style:dashed;
+    width: 50px;
+    height: 50px;
+}
+
+#box{
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+
 }
 
 
