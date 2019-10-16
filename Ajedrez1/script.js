@@ -638,6 +638,7 @@ Ficha.prototype.posibilidades=function(){
     var positions = this.movimiento(position);
     var casillas = Tablero1.boxes;
     var posibles= [];
+    var aux_pos=[];
     
     if(Tablero1.turn!=this.getcolor()){
         return posibles;
@@ -654,7 +655,20 @@ Ficha.prototype.posibilidades=function(){
             }
         }
     }
-    
+    if(this.getnombre()=="peon"){
+        posibles.map(function(pos) 
+        {if(encontrar_casilla(position).coordinate[0]!=pos[0] & encontrar_casilla(pos).ficha!="NaN"){
+            aux_pos.push(pos);
+
+        }else if(encontrar_casilla(position).coordinate[0]==pos[0] & encontrar_casilla(pos).ficha=="NaN"){
+            aux_pos.push(pos);
+
+        }
+        
+
+        })
+        return aux_pos;
+    }
     return posibles;
     
 }
